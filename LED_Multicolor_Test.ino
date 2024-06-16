@@ -12,6 +12,12 @@ void setup() {
     
     // Create the LED control task
     xTaskCreate(controlLEDs, "LED Control Task", 1024, NULL, 1, NULL);
+    
+    // Set custom intervals
+    setBlinkInterval(500); // Example: set blink interval to 500ms
+    setFastBlinkInterval(50); // Example: set fast blink interval to 50ms
+    setSlowBlinkInterval(2000); // Example: set slow blink interval to 2000ms
+    setCycleInterval(1500); // Example: set cycle interval to 1500ms
 }
 
 void loop() {
@@ -61,13 +67,13 @@ void loop() {
     ledBehavior = LED_BEHAVIOR_SLOW_BLINK;
     
     ledColor = LED_COLOR_RED;
-    vTaskDelay(3000 / portTICK_PERIOD_MS);
+    vTaskDelay(2000 / portTICK_PERIOD_MS);
     
     ledColor = LED_COLOR_GREEN;
-    vTaskDelay(3000 / portTICK_PERIOD_MS);
+    vTaskDelay(2000 / portTICK_PERIOD_MS);
     
     ledColor = LED_COLOR_BLUE;
-    vTaskDelay(3000 / portTICK_PERIOD_MS);
+    vTaskDelay(2000 / portTICK_PERIOD_MS);
 
     // Set the LED to cycle through colors
     ledBehavior = LED_BEHAVIOR_CYCLE;

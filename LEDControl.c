@@ -9,12 +9,47 @@ const int redLEDPin = 13;
 const int greenLEDPin = 12;
 const int blueLEDPin = 14;
 
-void controlLEDs(void *pvParameters) {
-    int blinkInterval = 250;  // Blinking interval in milliseconds
-    int fastBlinkInterval = 100;  // Blinking interval in milliseconds
-    int slowBlinkInterval = 1000;  // Blinking interval in milliseconds
-    int cycleInterval = 1000; // Cycle thru 3 colors interval in milliseconds
+// Interval variables
+static int blinkInterval = 250;  // Blinking interval in milliseconds
+static int fastBlinkInterval = 100;  // Blinking interval in milliseconds
+static int slowBlinkInterval = 1000;  // Blinking interval in milliseconds
+static int cycleInterval = 1000; // Cycle thru 3 colors interval in milliseconds
 
+// Getters
+int getBlinkInterval() {
+    return blinkInterval;
+}
+
+int getFastBlinkInterval() {
+    return fastBlinkInterval;
+}
+
+int getSlowBlinkInterval() {
+    return slowBlinkInterval;
+}
+
+int getCycleInterval() {
+    return cycleInterval;
+}
+
+// Setters
+void setBlinkInterval(int interval) {
+    blinkInterval = interval;
+}
+
+void setFastBlinkInterval(int interval) {
+    fastBlinkInterval = interval;
+}
+
+void setSlowBlinkInterval(int interval) {
+    slowBlinkInterval = interval;
+}
+
+void setCycleInterval(int interval) {
+    cycleInterval = interval;
+}
+
+void controlLEDs(void *pvParameters) {
     while (true) {
         switch (ledBehavior) {
             case LED_BEHAVIOR_OFF:
