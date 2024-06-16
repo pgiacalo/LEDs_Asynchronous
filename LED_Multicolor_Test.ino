@@ -14,19 +14,9 @@ void setup() {
     xTaskCreate(controlLEDs, "LED Control Task", 1024, NULL, 1, NULL);
     
     // Set custom intervals
-    setBlinkInterval(500); // Example: set blink interval to 500ms
-    setFastBlinkInterval(50); // Example: set fast blink interval to 50ms
-    setSlowBlinkInterval(1000); // Example: set slow blink interval to 2000ms
-    setCycleInterval(1500); // Example: set cycle interval to 1500ms
-
-    // Set custom brightness
-    setRedLEDBrightness(255); // Example: set red LED brightness to 128
-    setGreenLEDBrightness(255); // Example: set green LED brightness to 64
+    setRedLEDBrightness(128); // Example: set red LED brightness to 128
+    setGreenLEDBrightness(64); // Example: set green LED brightness to 64
     setBlueLEDBrightness(255); // Example: set blue LED brightness to 255
-
-    // setRedLEDBrightness(128); // Example: set red LED brightness to 128
-    // setGreenLEDBrightness(64); // Example: set green LED brightness to 64
-    // setBlueLEDBrightness(255); // Example: set blue LED brightness to 255
 
 }
 
@@ -58,6 +48,7 @@ void loop() {
     ledColor = LED_COLOR_BLUE;
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     Serial.println();
+    ledBehavior = LED_BEHAVIOR_OFF;
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
 
 
@@ -79,8 +70,8 @@ void loop() {
     ledColor = LED_COLOR_BLUE;
     vTaskDelay(3000 / portTICK_PERIOD_MS);
     Serial.println();
+    ledBehavior = LED_BEHAVIOR_OFF;
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
-
 
     // Set the LED to blink
     Serial.println("Test: LED Blink Red");
@@ -100,7 +91,9 @@ void loop() {
     ledColor = LED_COLOR_BLUE;
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     Serial.println();
+    ledBehavior = LED_BEHAVIOR_OFF;
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
+
 
     // Set the LED to fast blink
     Serial.println("Test: LED Fast Blink Red");
@@ -120,6 +113,7 @@ void loop() {
     ledColor = LED_COLOR_BLUE;
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     Serial.println();
+    ledBehavior = LED_BEHAVIOR_OFF;
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
 
 
@@ -128,6 +122,7 @@ void loop() {
     ledBehavior = LED_BEHAVIOR_CYCLE;
     vTaskDelay(6000 / portTICK_PERIOD_MS);
     Serial.println();
+    ledBehavior = LED_BEHAVIOR_OFF;
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
 
     // Repeat the sequence
