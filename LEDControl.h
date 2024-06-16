@@ -30,7 +30,7 @@ extern const int redLEDPin;
 extern const int greenLEDPin;
 extern const int blueLEDPin;
 
-// Getter and setter functions for the intervals
+// Getter and setter functions for the intervals and brightness
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -39,17 +39,27 @@ void controlLEDs(void *pvParameters);
 void initializeLEDs();
 void resetLEDs();
 
-// Getters
+// Getters for intervals
 int getBlinkInterval();
 int getFastBlinkInterval();
 int getSlowBlinkInterval();
 int getCycleInterval();
 
-// Setters
+// Setters for intervals
 void setBlinkInterval(int interval);
 void setFastBlinkInterval(int interval);
 void setSlowBlinkInterval(int interval);
 void setCycleInterval(int interval);
+
+// Getters for brightness
+int getRedLEDBrightness();
+int getGreenLEDBrightness();
+int getBlueLEDBrightness();
+
+// Setters for brightness
+void setRedLEDBrightness(int brightness);
+void setGreenLEDBrightness(int brightness);
+void setBlueLEDBrightness(int brightness);
 
 #ifdef __cplusplus
 }

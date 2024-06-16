@@ -18,6 +18,11 @@ void setup() {
     setFastBlinkInterval(50); // Example: set fast blink interval to 50ms
     setSlowBlinkInterval(2000); // Example: set slow blink interval to 2000ms
     setCycleInterval(1500); // Example: set cycle interval to 1500ms
+
+    // Set custom brightness
+    setRedLEDBrightness(128); // Example: set red LED brightness to 128
+    setGreenLEDBrightness(64); // Example: set green LED brightness to 64
+    setBlueLEDBrightness(255); // Example: set blue LED brightness to 255
 }
 
 void loop() {
