@@ -70,17 +70,14 @@ int getBlueLEDBrightness() {
 // Setters for brightness
 void setRedLEDBrightness(int brightness) {
     redLEDBrightness = brightness;
-    ledcWrite(redLEDPin, brightness);
 }
 
 void setGreenLEDBrightness(int brightness) {
     greenLEDBrightness = brightness;
-    ledcWrite(greenLEDPin, brightness);
 }
 
 void setBlueLEDBrightness(int brightness) {
     blueLEDBrightness = brightness;
-    ledcWrite(blueLEDPin, brightness);
 }
 
 void controlLEDs(void *pvParameters) {
@@ -106,24 +103,6 @@ void controlLEDs(void *pvParameters) {
                     ledcWrite(blueLEDPin, blueLEDBrightness);
                 }
                 break;
-            case LED_BEHAVIOR_FAST_BLINK:
-                if (ledColor == LED_COLOR_RED) {
-                    ledcWrite(redLEDPin, redLEDBrightness);
-                    vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
-                    ledcWrite(redLEDPin, 0);
-                    vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
-                } else if (ledColor == LED_COLOR_GREEN) {
-                    ledcWrite(greenLEDPin, greenLEDBrightness);
-                    vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
-                    ledcWrite(greenLEDPin, 0);
-                    vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
-                } else if (ledColor == LED_COLOR_BLUE) {
-                    ledcWrite(blueLEDPin, blueLEDBrightness);
-                    vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
-                    ledcWrite(blueLEDPin, 0);
-                    vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
-                }
-                break;
             case LED_BEHAVIOR_BLINK:
                 if (ledColor == LED_COLOR_RED) {
                     ledcWrite(redLEDPin, redLEDBrightness);
@@ -140,6 +119,24 @@ void controlLEDs(void *pvParameters) {
                     vTaskDelay(blinkInterval / portTICK_PERIOD_MS);
                     ledcWrite(blueLEDPin, 0);
                     vTaskDelay(blinkInterval / portTICK_PERIOD_MS);
+                }
+                break;
+            case LED_BEHAVIOR_FAST_BLINK:
+                if (ledColor == LED_COLOR_RED) {
+                    ledcWrite(redLEDPin, redLEDBrightness);
+                    vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
+                    ledcWrite(redLEDPin, 0);
+                    vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
+                } else if (ledColor == LED_COLOR_GREEN) {
+                    ledcWrite(greenLEDPin, greenLEDBrightness);
+                    vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
+                    ledcWrite(greenLEDPin, 0);
+                    vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
+                } else if (ledColor == LED_COLOR_BLUE) {
+                    ledcWrite(blueLEDPin, blueLEDBrightness);
+                    vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
+                    ledcWrite(blueLEDPin, 0);
+                    vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
                 }
                 break;
             case LED_BEHAVIOR_SLOW_BLINK:

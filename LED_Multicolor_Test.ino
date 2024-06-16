@@ -17,11 +17,11 @@ void setup() {
     setRedLEDBrightness(128); // Example: set red LED brightness to 128
     setGreenLEDBrightness(64); // Example: set green LED brightness to 64
     setBlueLEDBrightness(255); // Example: set blue LED brightness to 255
-
 }
 
 void loop() {
     // Example sequences to test LED behaviors and colors
+    Serial.println("-------------------------------------------");
 
     // Turn the LED off
     Serial.println("Test: LED Off");
@@ -32,42 +32,45 @@ void loop() {
 
     // Turn the LED on with different colors
     Serial.println("Test: LED On Red");
-    ledBehavior = LED_BEHAVIOR_ON;
     ledColor = LED_COLOR_RED;
+    ledBehavior = LED_BEHAVIOR_ON;
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     Serial.println();
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
     
     Serial.println("Test: LED On Green");
     ledColor = LED_COLOR_GREEN;
+    ledBehavior = LED_BEHAVIOR_ON;
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     Serial.println();
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
     
     Serial.println("Test: LED On Blue");
     ledColor = LED_COLOR_BLUE;
+    ledBehavior = LED_BEHAVIOR_ON;
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     Serial.println();
     ledBehavior = LED_BEHAVIOR_OFF;
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
 
-
     // Set the LED to slow blink
     Serial.println("Test: LED Slow Blink Red");
-    ledBehavior = LED_BEHAVIOR_SLOW_BLINK;
     ledColor = LED_COLOR_RED;
+    ledBehavior = LED_BEHAVIOR_SLOW_BLINK;
     vTaskDelay(3000 / portTICK_PERIOD_MS);
     Serial.println();
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
     
     Serial.println("Test: LED Slow Blink Green");
     ledColor = LED_COLOR_GREEN;
+    ledBehavior = LED_BEHAVIOR_SLOW_BLINK;
     vTaskDelay(3000 / portTICK_PERIOD_MS);
     Serial.println();
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
     
     Serial.println("Test: LED Slow Blink Blue");
     ledColor = LED_COLOR_BLUE;
+    ledBehavior = LED_BEHAVIOR_SLOW_BLINK;
     vTaskDelay(3000 / portTICK_PERIOD_MS);
     Serial.println();
     ledBehavior = LED_BEHAVIOR_OFF;
@@ -75,47 +78,49 @@ void loop() {
 
     // Set the LED to blink
     Serial.println("Test: LED Blink Red");
-    ledBehavior = LED_BEHAVIOR_BLINK;
     ledColor = LED_COLOR_RED;
+    ledBehavior = LED_BEHAVIOR_BLINK;
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     Serial.println();
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
     
     Serial.println("Test: LED Blink Green");
     ledColor = LED_COLOR_GREEN;
+    ledBehavior = LED_BEHAVIOR_BLINK;
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     Serial.println();
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
     
     Serial.println("Test: LED Blink Blue");
     ledColor = LED_COLOR_BLUE;
+    ledBehavior = LED_BEHAVIOR_BLINK;
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     Serial.println();
     ledBehavior = LED_BEHAVIOR_OFF;
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
 
-
     // Set the LED to fast blink
     Serial.println("Test: LED Fast Blink Red");
-    ledBehavior = LED_BEHAVIOR_FAST_BLINK;
     ledColor = LED_COLOR_RED;
+    ledBehavior = LED_BEHAVIOR_FAST_BLINK;
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     Serial.println();
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
     
     Serial.println("Test: LED Fast Blink Green");
     ledColor = LED_COLOR_GREEN;
+    ledBehavior = LED_BEHAVIOR_FAST_BLINK;
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     Serial.println();
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
     
     Serial.println("Test: LED Fast Blink Blue");
     ledColor = LED_COLOR_BLUE;
+    ledBehavior = LED_BEHAVIOR_FAST_BLINK;
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     Serial.println();
     ledBehavior = LED_BEHAVIOR_OFF;
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
-
 
     // Set the LED to cycle through colors
     Serial.println("Test: LED Cycle");
