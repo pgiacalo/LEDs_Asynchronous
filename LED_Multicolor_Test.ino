@@ -44,7 +44,7 @@ void loop() {
     vTaskDelay(2000 / portTICK_PERIOD_MS);
     Serial.println();
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
-    
+
     Serial.println("Test: LED On Blue");
     ledColor = LED_COLOR_BLUE;
     ledBehavior = LED_BEHAVIOR_ON;
@@ -52,7 +52,7 @@ void loop() {
     Serial.println();
     ledBehavior = LED_BEHAVIOR_OFF;
     vTaskDelay(1000 / portTICK_PERIOD_MS); // 1 second delay
-
+    
     // Set the LED to slow blink
     Serial.println("Test: LED Slow Blink Red");
     ledColor = LED_COLOR_RED;

@@ -4,40 +4,54 @@
 volatile LedBehavior ledBehavior = LED_BEHAVIOR_OFF;
 volatile LedColor ledColor = LED_COLOR_RED;
 
-// GPIO pins for the RGB LED
-const int redLEDPin = 13;
-const int greenLEDPin = 12;
-const int blueLEDPin = 14;
-
-// Interval variables
-static int blinkInterval = 250;  // Blinking interval in milliseconds
-static int fastBlinkInterval = 100;  // Blinking interval in milliseconds
-static int slowBlinkInterval = 1000;  // Blinking interval in milliseconds
-static int cycleInterval = 1000; // Cycle thru 3 colors interval in milliseconds
-
 // Brightness variables (0-255)
 static int redLEDBrightness = 255;
 static int greenLEDBrightness = 255;
 static int blueLEDBrightness = 255;
 
-// Getters for intervals
-int getBlinkInterval() {
-    return blinkInterval;
+// Interval variables
+static int blinkInterval = 250;  // Blinking interval in milliseconds
+static int fastBlinkInterval = 100;  // Blinking interval in milliseconds
+static int slowBlinkInterval = 1000;  // Blinking interval in milliseconds
+static int cycleInterval = 1000; // Cycle through 3 colors interval in milliseconds
+
+void initializeLEDs() {
+    pinMode(RED_LED_PIN, OUTPUT);
+    pinMode(GREEN_LED_PIN, OUTPUT);
+    pinMode(BLUE_LED_PIN, OUTPUT);
+    resetLEDs();
 }
 
-int getFastBlinkInterval() {
-    return fastBlinkInterval;
+void resetLEDs() {
+    analogWrite(RED_LED_PIN, 0);
+    analogWrite(GREEN_LED_PIN, 0);
+    analogWrite(BLUE_LED_PIN, 0);
 }
 
-int getSlowBlinkInterval() {
-    return slowBlinkInterval;
+void setRedLEDBrightness(int brightness) {
+    redLEDBrightness = brightness;
 }
 
-int getCycleInterval() {
-    return cycleInterval;
+void setGreenLEDBrightness(int brightness) {
+    greenLEDBrightness = brightness;
 }
 
-// Setters for intervals
+void setBlueLEDBrightness(int brightness) {
+    blueLEDBrightness = brightness;
+}
+
+int getRedLEDBrightness() {
+    return redLEDBrightness;
+}
+
+int getGreenLEDBrightness() {
+    return greenLEDBrightness;
+}
+
+int getBlueLEDBrightness() {
+    return blueLEDBrightness;
+}
+
 void setBlinkInterval(int interval) {
     blinkInterval = interval;
 }
@@ -54,121 +68,104 @@ void setCycleInterval(int interval) {
     cycleInterval = interval;
 }
 
-// Getters for brightness
-int getRedLEDBrightness() {
-    return redLEDBrightness;
+int getBlinkInterval() {
+    return blinkInterval;
 }
 
-int getGreenLEDBrightness() {
-    return greenLEDBrightness;
+int getFastBlinkInterval() {
+    return fastBlinkInterval;
 }
 
-int getBlueLEDBrightness() {
-    return blueLEDBrightness;
+int getSlowBlinkInterval() {
+    return slowBlinkInterval;
 }
 
-// Setters for brightness
-void setRedLEDBrightness(int brightness) {
-    redLEDBrightness = brightness;
-}
-
-void setGreenLEDBrightness(int brightness) {
-    greenLEDBrightness = brightness;
-}
-
-void setBlueLEDBrightness(int brightness) {
-    blueLEDBrightness = brightness;
+int getCycleInterval() {
+    return cycleInterval;
 }
 
 void controlLEDs(void *pvParameters) {
     while (true) {
         switch (ledBehavior) {
             case LED_BEHAVIOR_OFF:
-                ledcWrite(redLEDPin, 0);
-                ledcWrite(greenLEDPin, 0);
-                ledcWrite(blueLEDPin, 0);
+                resetLEDs();
                 break;
             case LED_BEHAVIOR_ON:
+                resetLEDs();
                 if (ledColor == LED_COLOR_RED) {
-                    ledcWrite(redLEDPin, redLEDBrightness);
-                    ledcWrite(greenLEDPin, 0);
-                    ledcWrite(blueLEDPin, 0);
+                    analogWrite(RED_LED_PIN, redLEDBrightness);
                 } else if (ledColor == LED_COLOR_GREEN) {
-                    ledcWrite(redLEDPin, 0);
-                    ledcWrite(greenLEDPin, greenLEDBrightness);
-                    ledcWrite(blueLEDPin, 0);
+                    analogWrite(GREEN_LED_PIN, greenLEDBrightness);
                 } else if (ledColor == LED_COLOR_BLUE) {
-                    ledcWrite(redLEDPin, 0);
-                    ledcWrite(greenLEDPin, 0);
-                    ledcWrite(blueLEDPin, blueLEDBrightness);
+                    analogWrite(BLUE_LED_PIN, blueLEDBrightness);
                 }
                 break;
             case LED_BEHAVIOR_BLINK:
+                resetLEDs();
                 if (ledColor == LED_COLOR_RED) {
-                    ledcWrite(redLEDPin, redLEDBrightness);
+                    analogWrite(RED_LED_PIN, redLEDBrightness);
                     vTaskDelay(blinkInterval / portTICK_PERIOD_MS);
-                    ledcWrite(redLEDPin, 0);
+                    analogWrite(RED_LED_PIN, 0);
                     vTaskDelay(blinkInterval / portTICK_PERIOD_MS);
                 } else if (ledColor == LED_COLOR_GREEN) {
-                    ledcWrite(greenLEDPin, greenLEDBrightness);
+                    analogWrite(GREEN_LED_PIN, greenLEDBrightness);
                     vTaskDelay(blinkInterval / portTICK_PERIOD_MS);
-                    ledcWrite(greenLEDPin, 0);
+                    analogWrite(GREEN_LED_PIN, 0);
                     vTaskDelay(blinkInterval / portTICK_PERIOD_MS);
                 } else if (ledColor == LED_COLOR_BLUE) {
-                    ledcWrite(blueLEDPin, blueLEDBrightness);
+                    analogWrite(BLUE_LED_PIN, blueLEDBrightness);
                     vTaskDelay(blinkInterval / portTICK_PERIOD_MS);
-                    ledcWrite(blueLEDPin, 0);
+                    analogWrite(BLUE_LED_PIN, 0);
                     vTaskDelay(blinkInterval / portTICK_PERIOD_MS);
                 }
                 break;
             case LED_BEHAVIOR_FAST_BLINK:
+                resetLEDs();
                 if (ledColor == LED_COLOR_RED) {
-                    ledcWrite(redLEDPin, redLEDBrightness);
+                    analogWrite(RED_LED_PIN, redLEDBrightness);
                     vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
-                    ledcWrite(redLEDPin, 0);
+                    analogWrite(RED_LED_PIN, 0);
                     vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
                 } else if (ledColor == LED_COLOR_GREEN) {
-                    ledcWrite(greenLEDPin, greenLEDBrightness);
+                    analogWrite(GREEN_LED_PIN, greenLEDBrightness);
                     vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
-                    ledcWrite(greenLEDPin, 0);
+                    analogWrite(GREEN_LED_PIN, 0);
                     vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
                 } else if (ledColor == LED_COLOR_BLUE) {
-                    ledcWrite(blueLEDPin, blueLEDBrightness);
+                    analogWrite(BLUE_LED_PIN, blueLEDBrightness);
                     vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
-                    ledcWrite(blueLEDPin, 0);
+                    analogWrite(BLUE_LED_PIN, 0);
                     vTaskDelay(fastBlinkInterval / portTICK_PERIOD_MS);
                 }
                 break;
             case LED_BEHAVIOR_SLOW_BLINK:
+                resetLEDs();
                 if (ledColor == LED_COLOR_RED) {
-                    ledcWrite(redLEDPin, redLEDBrightness);
+                    analogWrite(RED_LED_PIN, redLEDBrightness);
                     vTaskDelay(slowBlinkInterval / portTICK_PERIOD_MS);
-                    ledcWrite(redLEDPin, 0);
+                    analogWrite(RED_LED_PIN, 0);
                     vTaskDelay(slowBlinkInterval / portTICK_PERIOD_MS);
                 } else if (ledColor == LED_COLOR_GREEN) {
-                    ledcWrite(greenLEDPin, greenLEDBrightness);
+                    analogWrite(GREEN_LED_PIN, greenLEDBrightness);
                     vTaskDelay(slowBlinkInterval / portTICK_PERIOD_MS);
-                    ledcWrite(greenLEDPin, 0);
+                    analogWrite(GREEN_LED_PIN, 0);
                     vTaskDelay(slowBlinkInterval / portTICK_PERIOD_MS);
                 } else if (ledColor == LED_COLOR_BLUE) {
-                    ledcWrite(blueLEDPin, blueLEDBrightness);
+                    analogWrite(BLUE_LED_PIN, blueLEDBrightness);
                     vTaskDelay(slowBlinkInterval / portTICK_PERIOD_MS);
-                    ledcWrite(blueLEDPin, 0);
+                    analogWrite(BLUE_LED_PIN, 0);
                     vTaskDelay(slowBlinkInterval / portTICK_PERIOD_MS);
                 }
                 break;
             case LED_BEHAVIOR_CYCLE:
-                ledcWrite(redLEDPin, 0);
-                ledcWrite(greenLEDPin, greenLEDBrightness);
-                ledcWrite(blueLEDPin, 0);
+                resetLEDs();
+                analogWrite(RED_LED_PIN, redLEDBrightness);
                 vTaskDelay(cycleInterval / portTICK_PERIOD_MS);
-                ledcWrite(redLEDPin, 0);
-                ledcWrite(greenLEDPin, 0);
-                ledcWrite(blueLEDPin, blueLEDBrightness);
+                resetLEDs();
+                analogWrite(GREEN_LED_PIN, greenLEDBrightness);
                 vTaskDelay(cycleInterval / portTICK_PERIOD_MS);
-                ledcWrite(redLEDPin, redLEDBrightness);
-                ledcWrite(greenLEDPin, 0);
-                ledcWrite(blueLEDPin, 0);
+                resetLEDs();
+                analogWrite(BLUE_LED_PIN, blueLEDBrightness);
                 vTaskDelay(cycleInterval / portTICK_PERIOD_MS);
                 break;
         }
@@ -176,16 +173,4 @@ void controlLEDs(void *pvParameters) {
         // Add a short delay to ensure the task yields control and resets the watchdog
         vTaskDelay(10 / portTICK_PERIOD_MS);
     }
-}
-
-void initializeLEDs() {
-    ledcAttach(redLEDPin, 5000, 8); // 5000 Hz, 8-bit resolution
-    ledcAttach(greenLEDPin, 5000, 8); // 5000 Hz, 8-bit resolution
-    ledcAttach(blueLEDPin, 5000, 8); // 5000 Hz, 8-bit resolution
-}
-
-void resetLEDs() {
-    ledcWrite(redLEDPin, 0);
-    ledcWrite(greenLEDPin, 0);
-    ledcWrite(blueLEDPin, 0);
 }

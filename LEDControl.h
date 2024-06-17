@@ -5,6 +5,11 @@
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
 
+// Define GPIO pins for the RGB LED using standard pin numbers
+#define RED_LED_PIN 13
+#define GREEN_LED_PIN 12
+#define BLUE_LED_PIN 14
+
 // Enumerations for LED behavior and color
 typedef enum {
     LED_BEHAVIOR_OFF,
@@ -24,11 +29,6 @@ typedef enum {
 // Shared variables
 extern volatile LedBehavior ledBehavior;
 extern volatile LedColor ledColor;
-
-// GPIO pins for the RGB LED
-extern const int redLEDPin;
-extern const int greenLEDPin;
-extern const int blueLEDPin;
 
 // Getter and setter functions for the intervals and brightness
 #ifdef __cplusplus
